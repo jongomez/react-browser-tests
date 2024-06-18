@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
+    "outDir": "./dist", // Output directory for JS files
+    "declaration": true, // Generate corresponding '.d.ts' file
+    "declarationMap": true, // Create sourcemaps for '.d.ts' files
+    "module": "ESNext",
+    "target": "ESNext",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "strict": true,
+    "moduleDetection": "force"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
