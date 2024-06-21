@@ -4,9 +4,17 @@ React Browser Tests is a browser first testing library. The tests are written in
 
 React Browser Tests works with NextJS and TypeScript. The assertions are done with [Chai](https://www.chaijs.com/).
 
+## Getting started
+
+The package can be installed with:
+
 ```bash
 yarn add react-browser-tests
 ```
+
+## Docs
+
+The full version of the documentation along with some live examples can be found at [https://react-browser-tests.vercel.app/](https://react-browser-tests.vercel.app/)
 
 ## Examples
 
