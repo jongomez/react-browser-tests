@@ -16,6 +16,15 @@ export function isIframeLoaded(iframe: HTMLIFrameElement): boolean {
   }
 }
 
+export function checkIfframeHasTestContainers(iframe: HTMLIFrameElement): boolean {
+  const iframeWindow = iframe.contentWindow;
+  if (!iframeWindow) {
+    return false;
+  }
+
+  return iframeWindow.reactBrowserTests?.testContainers?.length > 0;
+}
+
 function waitForIframeLoad(iframe: HTMLIFrameElement, timeout: number = 5000): Promise<void> {
   return new Promise((resolve, reject) => {
     // Set up a timer to reject the promise if the iframe takes too long to load

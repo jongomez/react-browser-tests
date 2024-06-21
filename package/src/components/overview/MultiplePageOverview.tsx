@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { useCheckIframesLoaded } from "../..";
+import { useWaitForIframesTestContainers } from "../..";
 import { MultipleTestContainersOverview } from "./MultipleTestContainersOverview";
 
 export type MultiplePageOverviewProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -17,7 +17,7 @@ export const MultiplePageOverview: FC<MultiplePageOverviewProps> = ({
     setIframesLoaded((prev) => Array.from(new Set([...prev, index])));
   };
 
-  const iframeRefs = useCheckIframesLoaded(urls, handleIframeLoad);
+  const iframeRefs = useWaitForIframesTestContainers(urls, handleIframeLoad);
 
   if (urls.length === 0) {
     throw new Error("No urls provided to MultiplePageOverview");

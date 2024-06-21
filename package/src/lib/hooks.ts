@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { SetTestContainerState, isIframeLoaded } from "..";
+import { SetTestContainerState, checkIfframeHasTestContainers } from "..";
 import { base64TestIdUrlParam, defaultContainerId } from "../constants";
 import { BeforeAndAfterFunctions, GroupRecord, TestContainerState, TestRecord, TotalNumberOfTests, UpdateTestClosure } from "../types";
 import { executeTest, getContainerIds, toValidDOMId } from "./testHelpers";
@@ -281,8 +281,9 @@ export const useGetContainerIds = (iframeUrl?: string): string[] => {
   return containerIds;
 }
 
-
-export function useCheckIframesLoaded(
+// Waits for the iframes to load and checks if they have test containers.
+// The iframeRefs are updated when the iframes have loaded and have at least 1 test container.
+export function useWaitForIframesTestContainers(
   urls: string[],
   handleIframeLoad: (index: number) => void): React.MutableRefObject<(HTMLIFrameElement | null)[]> {
   const iframeRefs = useRef<(HTMLIFrameElement | null)[]>(Array(urls.length).fill(null));
@@ -302,7 +303,7 @@ export function useCheckIframesLoaded(
           numIframesLoaded++;
         }
 
-        if (iframe && !iframe.dataset.loaded && isIframeLoaded(iframe)) {
+        if (iframe && !iframe.dataset.loaded && checkIfframeHasTestContainers(iframe)) {
           iframe.dataset.loaded = "true";
           handleIframeLoad(index);
         }
