@@ -18,7 +18,11 @@ export default function Home() {
         React Browser Tests is a browser first testing library. The tests are written in React and run in a browser. <a href="/terminal">Terminal also works</a>.
       </p>
 
-      <p>React Browser Tests works with NextJS and TypeScript. The assertions are done with <a href="https://www.chaijs.com/">Chai</a>.</p>
+      <p>React Browser Tests works with NextJS and TypeScript. The assertions are done with <a href="https://www.chaijs.com/" target="_blank" rel="noreferrer">Chai</a>.</p>
+
+      <h2>Getting started</h2>
+
+      <p>The package can be installed with:</p>
 
       <SyntaxHighlighter language="bash" style={prism}>
         {`yarn add react-browser-tests`}

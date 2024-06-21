@@ -65,3 +65,11 @@ code {
   padding: 4px 5px 6px;
   white-space: nowrap;
 }
+
+.link-list {
+  list-style-type: initial;
+
+  li {
+    padding-bottom: 10px;
+  }
+}

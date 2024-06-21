@@ -61,7 +61,7 @@ export default function HelperFunctionsPage() {
 
       <h3>Others</h3>
       <p>There are other functions available. Their source code is available on:</p>
-      <ul style={{ listStyleType: "initial" }}>
+      <ul className="link-list">
         <li><a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/lib/testHelpers.ts" target="_blank" rel="noreferrer">testHelpers.ts</a></li>
         <li><a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/lib/window.ts" target="_blank" rel="noreferrer">window.ts</a></li>
         <li><a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/lib/hooks.ts" target="_blank" rel="noreferrer">hooks.ts</a></li>

@@ -43,7 +43,7 @@ export default function Page() {
 `}
       </SyntaxHighlighter>
 
-      <p>Note that in the code above, the tests have display: none. This way, only the &lt;SingleTestContainerOverview&gt; component will be visible. The final result is:</p>
+      <p>Note that in the code above, the tests have <code>display: none</code>. This way, only the &lt;SingleTestContainerOverview&gt; component will be visible. The final result is:</p>
 
       <>
         <TestContainer>

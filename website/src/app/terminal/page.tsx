@@ -124,7 +124,8 @@ testContainerStates = await page.evaluate(() => {
       </SyntaxHighlighter>
 
       <p>The window functions and script helpers are available in the following files:</p>
-      <ul style={{ listStyleType: "initial" }}>
+
+      <ul className="link-list">
         <li><a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/scripts/puppeteer/puppeteerHelpers.ts" target="_blank" rel="noreferrer">puppeteerHelpers.ts</a></li>
         <li><a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/lib/window.ts" target="_blank" rel="noreferrer">window.ts</a></li>
       </ul>
