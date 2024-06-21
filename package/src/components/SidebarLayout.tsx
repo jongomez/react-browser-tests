@@ -10,7 +10,7 @@ const GithubIcon = () => {
   return (
     <svg
       style={{
-        marginRight: "24px"
+        marginRight: "32px"
       }}
       width="28"
       height="28"
@@ -27,7 +27,6 @@ export type SidebarLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
   css?: string | null
   children?: React.ReactNode;
 }
-
 
 export const SidebarLayout: React.FC<SidebarLayoutProps> = ({
   sidebarMenu,

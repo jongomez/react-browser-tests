@@ -11,19 +11,18 @@ export const testUrls: SidebarUrls = {
 
 export const componentUrls: SidebarUrls = {
   "/components/test-container": "Test Container",
-  "/components/test-group": "Test Group",
   "/components/test": "Test",
+  "/components/test-group": "Test Group",
   "/components/single-test-container-overview": "Single Test Container Overview",
   "/components/multiple-test-container-overview": "Multiple Test Container Overview",
   "/components/multiple-page-overview": "Multiple Page Overview",
-  "/components/test-stats-display": "Test Stats Display",
-  "/components/test-group-stats": "Test Group Stats",
   "/components/sidebar-layout": "Sidebar Layout",
 };
 
 export const sidebarMenu: SidebarMenu = {
   "/": ["Home"],
   "/components": ["Components", componentUrls],
+  "/helper-functions": ["Helper Functions"],
+  "/terminal": ["Run in a Terminal"],
   "/tests": ["Tests", testUrls],
 }
-

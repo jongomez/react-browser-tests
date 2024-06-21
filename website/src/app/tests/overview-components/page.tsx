@@ -1,11 +1,10 @@
 "use client"
 
-import { sidebarMenu } from "@/constants";
-import { MultiplePageOverview, MultipleTestContainersOverview, SidebarLayout, Test, TestContainer, TestGroup, expect, waitFor } from "react-browser-tests";
+import { MultiplePageOverview, MultipleTestContainersOverview, Test, TestContainer, TestGroup, expect, waitFor } from "react-browser-tests";
 
 export default function OverviewComponentsTests() {
   return (
-    <SidebarLayout sidebarMenu={sidebarMenu} activeUrl="/tests/overview-components">
+    <>
       <TestContainer id="first-container">
         <Test title="Simple passing test: 1 + 1 = 2" fn={async () => {
           expect(1 + 1).to.equal(2);
@@ -46,6 +45,6 @@ export default function OverviewComponentsTests() {
           />
         </Test>
       </TestContainer>
-    </SidebarLayout>
+    </>
   );
 }

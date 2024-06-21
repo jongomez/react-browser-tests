@@ -1,7 +1,6 @@
 "use client"
 
-import { sidebarMenu } from '@/constants';
-import { SidebarLayout, Test, TestContainer, expect, waitFor } from 'react-browser-tests';
+import { TestContainer, TestStatsDisplay } from 'react-browser-tests';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
@@ -10,151 +9,94 @@ import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 SyntaxHighlighter.registerLanguage('bash', bash);
 
-export default function Home() {
+export default function Components() {
   return (
-    <SidebarLayout sidebarMenu={sidebarMenu} activeUrl="/">
-      <h1>React Browser Tests</h1>
-
-      <SyntaxHighlighter language="bash" style={prism}>
-        {`yarn add react-browser-tests`}
-      </SyntaxHighlighter>
-
+    <>
+      <h2>Components</h2>
       <p>
-        React Browser Tests is a browser first testing library. The tests are written in React and run in a browser. Terminal also works - more info down below.
+        The main components provided by the React Browser Tests package are:
       </p>
 
-      <p>React Browser Tests works with NextJS and TypeScript. The assertions are done with <a href="https://www.chaijs.com/">Chai.js</a>.</p>
+      <div className="grid-container">
+        <div>&lt;TestContainer&gt;</div>
+        <div>
+          <p>Container of &lt;Test&gt; components. Uses react context to manage the state of the tests.</p>
+          <p>&lt;Test&gt; components must have a &lt;TestContainer&gt; parent somewhere in the tree.</p>
+        </div>
 
-      <h2>Examples</h2>
+        <div>&lt;Test&gt;</div>
+        <div>
+          <p>Executes a test function and shows the result in a browser. Optionally, the tests can run in a terminal, via a headless browser for example.</p>
+          <p>The tests in a &lt;TestContainer&gt; run sequentially. The child components of each &lt;Test&gt; component are only rendered when the test is running or has run.</p>
+          <p>&lt;Test&gt; components must have a &lt;TestContainer&gt; parent somewhere in the tree.</p>
+        </div>
 
-      <p>The following example shows a NextJS page with a Test on it:</p>
+        <div>&lt;TestGroup&gt;</div>
+        <div>
+          <p>Groups multiple &lt;Test&gt; components together. &lt;Test&gt; components can be used without a &lt;TestGroup&gt; parent.</p>
+        </div>
 
-      <SyntaxHighlighter language="tsx" style={prism}>
-        {`import { Test, TestContainer, TestGroup, expect } from "react-browser-tests";
+        <div>&lt;SingleTestContainersOverview&gt;</div>
+        <div><p>Shows an overview of all the tests in a single &lt;TestContainer&gt; element.</p></div>
 
-export default function TestPage() {
-  return (
-    <TestContainer>
-        <Test title="Expect 1 + 1 to equal 2." fn={() => {
-          expect(1 + 1).to.equal(2);
-        }} />
-    </TestContainer>
-  );
-}`}
-      </SyntaxHighlighter>
+        <div>&lt;MultipleTestContainersOverview&gt;</div>
+        <div>
+          <p>Shows an overview of all the tests in all &lt;TestContainer&gt; elements in a single page.</p>
+          <p><b>Note:</b> having multiple &lt;TestContainer&gt; elements in a page is possible, but it will significantly increase complexity, and may not be working 100% correctly.</p>
+        </div>
 
-      <p>If we navigate to that page, we&apos;ll see:</p>
+        <div>&lt;MultiplePageOverview&gt;</div>
+        <div>
+          <p>Receives an array of URLs and shows an overview of all the tests in all the pages.</p>
+          <p>This component creates an iframe for each of the passed in URLs. Then, for each iframe, a &lt;MultipleTestContainersOverview&gt; component is used to show an overview of the tests. </p>
+          <p>Currently, a &lt;TestContainer&gt; parent element is required (just for the CSS styles. This may change in the future).</p>
+        </div>
 
-      <TestContainer>
-        <Test title="Expect 1 + 1 to equal 2." fn={() => {
-          expect(1 + 1).to.equal(2);
-        }} />
-      </TestContainer>
+        <div>&lt;SidebarLayout&gt;</div>
+        <div>
+          <p>Simple sidebar layout UI component. Contains a sidebar with links, a header and a main content area. Useful when handling multiple test pages.</p>
+          <p>The sidebar and header in this website were built using a &lt;SidebarLayout&gt; component.</p>
+        </div>
+      </div>
 
-      <p>We can also pass in children to the Test component along with an async test function:</p>
+      <h3>Secondary components</h3>
+      <p>The following are secondary components. They are used internally by the main components listed above, but are also exported as they may potentially be useful:</p>
+      <div className="grid-container">
+        <div>&lt;TestStatsDisplay&gt;</div>
+        <div>
+          <p>Receives an object with test stats, and shows the results. Example usage:</p>
+          <SyntaxHighlighter language="tsx" style={prism}>
+            {`<TestContainer>
+  <TestStatsDisplay
+    testStats={{
+      total: 3,
+      passed: 2,
+      failed: 0,
+      skipped: 1,
+      pending: 0,
+      running: 0,
+      state: "Success"
+  }} />
+</TestContainer>`}
+          </SyntaxHighlighter>
 
-      <SyntaxHighlighter language="tsx" style={prism}>
-        {`<Test title="Expect child component to exist." fn={async () => { 
-  // Wait for the child component to be rendered.
-  await waitFor(() => !!document.getElementById("child-component"));
-
-  // Assert that the child component has the correct text content.
-  expect(document.getElementById("child-component")!.textContent).to.equal("Child component.");
-}}>
-  <div id="child-component">Child component.</div>
-</Test>`}
-      </SyntaxHighlighter>
-
-      <p>&apos;waitFor&apos; is a small utility function imported from the &apos;react-browser-tests&apos; package. The result is:</p>
-
-      <TestContainer id="test-container-2" css={null}>
-        <Test title="Expect child component to exist." fn={async () => {
-          // Wait for the child component to be rendered.
-          await waitFor(() => !!document.getElementById("child-component"));
-
-          // Assert that the child component has the correct text content.
-          const childComponent = document.getElementById("child-component");
-          expect(childComponent!.textContent).to.equal("Child component.");
-        }}>
-          <div id="child-component">Child component.</div>
-        </Test>
-      </TestContainer>
-
-      <p>The test pages for the package contain more examples: <a href="/tests">/tests</a></p>
-
-      <h2>Components and functions</h2>
-      <p>
-        This package provides the following components:
-      </p>
-
-      <ul>
-        <li>&lt;TestContainer&gt; - The container for all tests. It uses react context to manage the state of the tests.</li>
-        <SyntaxHighlighter language="tsx" style={prism}>
-          {`// The TestContainer accepts the following optional functions:
-type BeforeAndAfterFunctions = {
-  beforeEach?: () => void;
-  afterEach?: () => void;
-  beforeAll?: (tests: TestRecord) => void
-  afterAll?: (tests: TestRecord) => void;
-};
-
-// And here's the final props type:
-type TestContainerProps = React.HTMLAttributes<HTMLDivElement> & BeforeAndAfterFunctions & {
-  css?: string; // CSS as a string prop.
-};
-`}
-        </SyntaxHighlighter>
-        <li>&lt;Test&gt; - The actual test component.</li>
-        <SyntaxHighlighter language="tsx" style={prism}>
-          {`type TestProps = React.HTMLAttributes<HTMLDivElement> & {
-  title: string;
-  fn: TestType["fn"];
-  TitleAndState?: React.FC<TitleAndStateProps>;
-  skip?: boolean;
-  only?: boolean;
-};`}
-        </SyntaxHighlighter>
-
-
-
-
-        <li>&lt;TestGroup&gt; - Used to define a group of tests.</li>
-        <SyntaxHighlighter language="tsx" style={prism}>
-          {`// The TestGroup component also accepts the same BeforeAndAfterFunctions as the TestContainer.
-// Along with a title
-          type TestGroupType = BeforeAndAfterFunctions & {
-  title: string;
-};
-`}
-        </SyntaxHighlighter>
-        <li>&lt;SingleTestContainersOverview&gt; - .</li>
-        <li>&lt;MultipleTestContainersOverview&gt; - .</li>
-        <li>&lt;MultiplePageOverview&gt; - Shows an overview of all tests.</li>
-        <li>&lt;SidebarLayout&gt; - A layout with a sidebar.</li>
-        <li>&lt;TestGroupStats&gt; - .</li>
-        <li>&lt;TestStatsDisplay&gt; - .</li>
-      </ul>
-
-      <p>The package also provides the following functions:</p>
-
-      <ul>
-        <li>waitFor - </li>
-        <li>assert, expect, should - These are re-exported from <a href="https://www.chaijs.com/">Chai.js</a>.</li>
-      </ul>
-
-      <p>The testHelpers.ts and hooks.ts files have additional functions that are exported. However, the main functions are the ones listed above.</p>
-
-      <h2>Running in a terminal</h2>
-      <p>React Test Components provides some utilities to facilitate running tests via terminal.
-        However, a headless browser (e.g. puppeteer) is still necessary.
-      </p>
-      <p>There is an example script availabe on github, with instructions on how to run tests from a terminal.&nbsp;
-        <b>NOTE:</b> the example script uses puppeteer and tsx to run. These packages are not included in the react-test-component package. But, they can be added to a project with:</p>
-      <pre>
-        <SyntaxHighlighter language="bash" style={prism}>
-          {`yarn add --dev puppeteer tsx`}
-        </SyntaxHighlighter>
-      </pre>
-    </SidebarLayout>
+          <p>Final result:</p>
+          <TestContainer>
+            <TestStatsDisplay
+              testStats={{
+                total: 3,
+                passed: 2,
+                failed: 0,
+                skipped: 1,
+                pending: 0,
+                running: 0,
+                state: "Success"
+              }} />
+          </TestContainer>
+        </div>
+        <div>&lt;TestArrayStats&gt;</div>
+        <div><p>Receives a groupTitle and an array of tests. This component will render a &lt;TestStatsDisplay&gt; component with stats for all the tests in the passed in array.</p></div>
+      </div>
+    </>
   );
 }

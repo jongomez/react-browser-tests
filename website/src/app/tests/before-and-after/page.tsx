@@ -1,7 +1,6 @@
 "use client"
 
-import { sidebarMenu } from "@/constants";
-import { ReactBrowserTestsWindowObject, SidebarLayout, Test, TestContainer, TestGroup, expect, waitFor } from "react-browser-tests";
+import { ReactBrowserTestsWindowObject, Test, TestContainer, TestGroup, expect, waitFor } from "react-browser-tests";
 
 declare global {
   interface Window extends ReactBrowserTestsWindowObject {
@@ -19,7 +18,7 @@ declare global {
 
 export default function BeforeAndAfter() {
   return (
-    <SidebarLayout sidebarMenu={sidebarMenu} activeUrl="/tests/before-and-after">
+    <>
       <TestContainer
         beforeAll={() => {
           window.containerBeforeAllRan = true;
@@ -106,6 +105,6 @@ export default function BeforeAndAfter() {
           expect(window.groupAfterAllRan).to.be.true;
         }} />
       </TestContainer>
-    </SidebarLayout>
+    </>
   );
 }

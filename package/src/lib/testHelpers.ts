@@ -359,7 +359,6 @@ export const getIconStyles = (state: TestState): string => {
     default:
       throw new Error(`Unknown test state: ${state}`);
   }
-
 }
 
 export const getBorderStyles = (state: TestState): string => {

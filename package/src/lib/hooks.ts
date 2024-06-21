@@ -209,7 +209,6 @@ const getContentWindow = (iframeUrl?: string): Window => {
   return contentWindow;
 }
 
-
 export const useGetContainerStateUntilAllTestsFinish = (
   containerId = defaultContainerId,
   iframeUrl?: string,
@@ -303,7 +302,6 @@ export function useCheckIframesLoaded(
           numIframesLoaded++;
         }
 
-        console.log("forEach iframeRefs", index, iframe)
         if (iframe && !iframe.dataset.loaded && isIframeLoaded(iframe)) {
           iframe.dataset.loaded = "true";
           handleIframeLoad(index);

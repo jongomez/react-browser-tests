@@ -44,7 +44,7 @@ export const testContainerStyles: string = `
   margin: 4px;
 }
 
-.rbt-test-group-stats {
+.rbt-test-array-stats {
   padding: 8px;
   border-radius: 4px;
   margin: 4px;

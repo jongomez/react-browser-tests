@@ -6,7 +6,7 @@ export * from "./TestGroup";
 export * from "./TestGroupContext";
 
 // Stats components.
-export * from "./stats/TestGroupStatsProps";
+export * from "./stats/TestArrayStats";
 export * from "./stats/TestStatsDisplay";
 
 // Overview components.

@@ -1,7 +1,7 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-export type YargsArgv = {
+export type TestScriptYargsArgv = {
   [x: string]: unknown;
   url: string;
   log: boolean;
@@ -9,7 +9,7 @@ export type YargsArgv = {
   $0: string;
 };
 
-export const yargsArgv = yargs(hideBin(process.argv))
+export const testScriptYargsArgv = yargs(hideBin(process.argv))
   .usage('Usage: $0 --url <url> [--log]')
   .option('url', {
     describe: 'URL to visit',

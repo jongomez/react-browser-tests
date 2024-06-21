@@ -36,11 +36,9 @@ export const MultiplePageOverview: FC<MultiplePageOverviewProps> = ({
                 return;
               }
 
-              console.log("iframeRefs", index, el)
               iframeRefs.current[index] = el
             }}
             src={url}
-            onLoad={() => { /* onLoad is retained in case it's needed for other uses, but not used for loading state */ }}
             {...iframeProps} />
         </div>
       ))}

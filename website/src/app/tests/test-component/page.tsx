@@ -1,11 +1,10 @@
 "use client"
 
-import { sidebarMenu } from "@/constants";
-import { SidebarLayout, Test, TestContainer, checkIfContainerTestsComplete, expect, getContainerState, getTestArray, waitFor } from "react-browser-tests";
+import { Test, TestContainer, checkIfContainerTestsComplete, expect, getContainerState, getTestArray, waitFor } from "react-browser-tests";
 
 export default function TestComponentTests() {
   return (
-    <SidebarLayout sidebarMenu={sidebarMenu} activeUrl="/tests/test-component">
+    <>
       <TestContainer>
         <Test title="Skip is working" fn={async () => {
           const containerId = "test-container-1"
@@ -80,6 +79,6 @@ export default function TestComponentTests() {
           </TestContainer>
         </Test>
       </TestContainer >
-    </SidebarLayout>
+    </>
   );
 }

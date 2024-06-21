@@ -40,7 +40,7 @@ export const checkIfContainerTestsComplete = (containerId: string = defaultConta
 }
 
 // For all the containers in a page, check if all the tests are complete.
-export const checkIfAllContainerTestsComplete = (windowRef?: Window): boolean => {
+export const checkIfTestsFromAllContainersComplete = (windowRef?: Window): boolean => {
   windowRef = windowRef || window;
   const allContainerStates = windowRef.reactBrowserTests.testContainers ?? [];
 
@@ -91,7 +91,7 @@ export const updateWindowObject = (
       getTestRecord,
       getTestArray,
       checkIfContainerTestsComplete,
-      checkIfAllContainerTestsComplete,
+      checkIfTestsFromAllContainersComplete,
       sumTotalNumberOfTests,
       checkIfAllTestsRegistered
     };

@@ -89,7 +89,7 @@ export type TestStats = {
   state: TestState;
 };
 
-export type TestGroupStatsMap = Map<string, TestStats>;
+export type TestArrayStatsMap = Map<string, TestStats>;
 
 
 export type TestContainerState = {
@@ -106,11 +106,11 @@ export type UpdateTestClosure = (test: TestType, updateIndex?: boolean) => TestC
 
 export type ReactBrowserTestsWindowObject = {
   testContainers: TestContainerState[];
-  getContainerState: (containerId: string, windowRef?: Window) => TestContainerState | undefined;
-  getTestRecord: (containerId: string, windowRef?: Window) => Record<string, TestType>;
-  getTestArray: (containerId: string, windowRef?: Window) => TestType[];
-  checkIfContainerTestsComplete: (containerId: string, windowRef?: Window) => boolean;
-  checkIfAllContainerTestsComplete: (windowRef?: Window) => boolean;
+  getContainerState: (containerId?: string, windowRef?: Window) => TestContainerState | undefined;
+  getTestRecord: (containerId?: string, windowRef?: Window) => Record<string, TestType>;
+  getTestArray: (containerId?: string, windowRef?: Window) => TestType[];
+  checkIfContainerTestsComplete: (containerId?: string, windowRef?: Window) => boolean;
+  checkIfTestsFromAllContainersComplete: (windowRef?: Window) => boolean;
   sumTotalNumberOfTests: (windowRef?: Window) => number | null;
   checkIfAllTestsRegistered: (windowRef?: Window) => boolean;
 }

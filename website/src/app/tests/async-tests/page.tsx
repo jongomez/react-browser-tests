@@ -1,12 +1,11 @@
 "use client"
 
-import { sidebarMenu } from "@/constants";
-import { SidebarLayout, Test, TestContainer, TestGroup, expect } from "react-browser-tests";
+import { Test, TestContainer, TestGroup, expect } from "react-browser-tests";
 
 
 export default function AsyncTests() {
   return (
-    <SidebarLayout sidebarMenu={sidebarMenu} activeUrl="/tests/async-tests">
+    <>
       <TestContainer>
         <TestGroup title="Async test group">
           <Test title="Async test - wait 1 second." fn={async () => {
@@ -26,6 +25,6 @@ export default function AsyncTests() {
           }} /> */}
         </TestGroup>
       </TestContainer>
-    </SidebarLayout>
+    </>
   );
 }

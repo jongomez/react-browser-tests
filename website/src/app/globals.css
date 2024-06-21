@@ -4,6 +4,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+p {
+  margin: 12px 0;
+  line-height: 1.5;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -12,4 +17,51 @@ ul {
 
 pre {
   border-radius: 0.5rem;
+}
+
+a {
+  /* text-decoration: none; */
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  overflow: auto;
+
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+
+  /* Add styles to the first div child. */
+  >div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    text-align: left;
+
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+.single-state-meaning {
+  display: flex;
+  align-items: center;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+ol {
+  li {
+    padding-bottom: 12px;
+  }
+}
+
+code {
+  background-color: #f5f2f0;
+  color: black;
+  border-radius: 0.3em;
+  padding: 4px 5px 6px;
+  white-space: nowrap;
 }

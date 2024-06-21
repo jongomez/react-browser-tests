@@ -1,6 +1,6 @@
 import logUpdate from 'log-update';
 import { groupTests } from '../../lib/testHelpers';
-import { checkIfAllContainerTestsComplete, checkIfAllTestsRegistered } from '../../lib/window';
+import { checkIfAllTestsRegistered, checkIfTestsFromAllContainersComplete } from '../../lib/window';
 import { TestContainerState } from '../../types';
 
 export type DummyPage = any;
@@ -56,7 +56,7 @@ export async function showTestProgress(page: DummyPage): Promise<TestContainerSt
     logUpdate(`${prettyPrintTestContainerStates(testContainerStates)}`);
 
     // Check if all tests are complete.
-    allTestsComplete = await page.evaluate(checkIfAllContainerTestsComplete);
+    allTestsComplete = await page.evaluate(checkIfTestsFromAllContainersComplete);
 
     // Wait for a short interval before checking the test results again.
     await new Promise((resolve) => {
@@ -80,7 +80,6 @@ export const goToUrl = async (page: DummyPage, url: string): Promise<void> => {
     throw new Error('404: Page not found. URL: ' + url);
   }
 }
-
 
 export const defaultPuppeteerLaunchOptions: DummyPuppeteerLaunchOptions = {
   headless: true,

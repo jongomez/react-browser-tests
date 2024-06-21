@@ -4,8 +4,6 @@ import { toValidDOMId } from "./testHelpers";
 let hasExecuteTestListener = false;
 let hasRegisterTestListener = false;
 
-
-
 export function isIframeLoaded(iframe: HTMLIFrameElement): boolean {
   try {
     // Check if the iframe's document is accessible and complete

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useGetContainerStateUntilAllTestsFinish } from "../../lib/hooks";
 import { getBorderStyles, getTestArrayFromContainerState, getTestStats, groupTests } from "../../lib/testHelpers";
-import { TestGroupStats } from "../stats/TestGroupStatsProps";
+import { TestArrayStats } from "../stats/TestArrayStats";
 import { TestStatsDisplay } from "../stats/TestStatsDisplay";
 
 export type SingleTestContainerOverviewProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -38,7 +38,7 @@ export const SingleTestContainerOverview: FC<SingleTestContainerOverviewProps> =
       </div>
 
       {showGroupStats && uniqueTestGroupTitles.map((groupTitle) => (
-        <TestGroupStats key={groupTitle} groupTitle={groupTitle} tests={groupedTests[groupTitle]} />
+        <TestArrayStats key={groupTitle} groupTitle={groupTitle} tests={groupedTests[groupTitle]} />
       ))}
     </div>
   );

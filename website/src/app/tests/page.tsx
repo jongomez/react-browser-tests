@@ -1,14 +1,13 @@
 "use client"
 
+import { testUrls } from "@/constants";
+import { MultiplePageOverview, TestContainer } from "react-browser-tests";
 
-import { sidebarMenu, testUrls } from "@/constants";
-import { MultiplePageOverview, SidebarLayout, TestContainer } from "react-browser-tests";
-
-export default function Home() {
+export default function Tests() {
   const urls = Object.keys(testUrls);
 
   return (
-    <SidebarLayout sidebarMenu={sidebarMenu} activeUrl="/tests">
+    <>
       <h2>Tests for the React Browser Tests package</h2>
 
       <p>
@@ -28,6 +27,6 @@ export default function Home() {
           }}
         />
       </TestContainer>
-    </SidebarLayout>
+    </>
   );
 }
