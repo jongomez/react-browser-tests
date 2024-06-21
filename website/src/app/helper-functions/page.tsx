@@ -33,7 +33,7 @@ export default function HelperFunctionsPage() {
 
         <div>assert, expect, should</div>
         <div>
-          <p>These are re-exported from <a href="https://www.chaijs.com/">Chai.js</a>.</p>
+          <p>These are re-exported from <a href="https://www.chaijs.com/">Chai</a>.</p>
         </div>
       </div>
 
