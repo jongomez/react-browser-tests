@@ -83,6 +83,13 @@ export const CustomSidebarLayout: FC<CustomSidebarLayoutProps> = ({ children }) 
         </div>
 
         <div>
+          css?
+        </div>
+        <div>
+          <p>CSS styles to apply to the sidebar layout elements. The default value is a CSS string constant called <code>layoutStyles</code>, exported from the <a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/styles.ts" target="_blank" rel="noreferrer">styles.ts</a> file.</p>
+        </div>
+
+        <div>
           HTMLDivElement props
         </div>
         <div>

@@ -72,7 +72,7 @@ export default function TestPage() {
           css?
         </div>
         <div>
-          <p>CSS styles to apply to the container&apos;s elements. The default value is a CSS string constant called <code>testContainerStyles</code>, exported from the <code>styles.ts</code> file.</p>
+          <p>CSS styles to apply to the container&apos;s elements. The default value is a CSS string constant called <code>testContainerStyles</code>, exported from the <a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/styles.ts" target="_blank" rel="noreferrer">styles.ts</a> file.</p>
         </div>
         <div>
           HTMLDivElement props

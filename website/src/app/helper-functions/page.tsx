@@ -61,11 +61,11 @@ export default function HelperFunctionsPage() {
 
       <h3>Others</h3>
       <p>There are other functions available. Their source code is available on:</p>
-      <ul>
-        <li>testHelpers.ts</li>
-        <li>window.ts</li>
-        <li>hooks.ts</li>
-        <li>iframeHelpers.ts</li>
+      <ul style={{ listStyleType: "initial" }}>
+        <li><a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/lib/testHelpers.ts" target="_blank" rel="noreferrer">testHelpers.ts</a></li>
+        <li><a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/lib/window.ts" target="_blank" rel="noreferrer">window.ts</a></li>
+        <li><a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/lib/hooks.ts" target="_blank" rel="noreferrer">hooks.ts</a></li>
+        <li><a href="https://github.com/jongomez/react-browser-tests/blob/main/package/src/lib/iframeHelpers.ts" target="_blank" rel="noreferrer">iframeHelpers.ts</a></li>
       </ul>
     </>
   );

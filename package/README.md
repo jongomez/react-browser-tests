@@ -125,7 +125,7 @@ npx tsx puppeteerScriptExample.ts -u <test page url>
 
 | Function                      | Description |
 |-------------------------------|-------------|
-| `defaultPuppeteerLaunchOptions` | Basic launch option for puppeteer. has `headless: true` and `args: ['--no-sandbox', '--disable-setuid-sandbox']`|
+| `defaultPuppeteerLaunchOptions` | Basic launch option for puppeteer. Currently has `headless: true` and `args: ['--no-sandbox', '--disable-setuid-sandbox']`|
 | `initPage`                    | Async function. Initializes a page in a browser. Example usage:<br><br>`const browser = await puppeteer.launch(defaultPuppeteerLaunchOptions);`<br>`const page = await initPage(browser, true);`<br> |
 | `showTestProgress`            | Async function. Receives a puppeteer page. Runs all the tests in a page and resolves when all the tests have finished. Returns the states of all the test containers in the page. |
 | `goToUrl`                     | Async function. Receives a puppeteer page and a URL. Navigates to the URL. |
@@ -158,5 +158,5 @@ testContainerStates = await page.evaluate(() => {
 
 The window functions and script helpers are available in the following files:
 
-- `puppeteerHelpers.ts`
-- `window.ts`
+- [puppeteerHelpers.ts](https://github.com/jongomez/react-browser-tests/blob/main/package/src/scripts/puppeteer/puppeteerHelpers.ts)
+- [window.ts](https://github.com/jongomez/react-browser-tests/blob/main/package/src/lib/window.ts)
