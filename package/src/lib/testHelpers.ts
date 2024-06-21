@@ -277,7 +277,7 @@ export const handleBeforeFunctions = (
   }
 }
 
-export const getContainerIds = (contentDocument: Document): string[] => {
+export const getContainerIds = (contentDocument: Document, iframeUrl?: string): string[] => {
   const testContainers = contentDocument.querySelectorAll('[data-test-container]');
   const testContainersArray = Array.from(testContainers);
   const containerIds = []
@@ -291,6 +291,10 @@ export const getContainerIds = (contentDocument: Document): string[] => {
     }
 
     containerIds.push(containerId);
+  }
+
+  if (containerIds.length === 0) {
+    throw new Error("No test containers found. iframeUrl: " + iframeUrl || "none");
   }
 
   return containerIds;

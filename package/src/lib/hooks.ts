@@ -273,7 +273,7 @@ export const useGetContainerIds = (iframeUrl?: string): string[] => {
     const contentWindow = getContentWindow(iframeUrl);
     const contentDocument = contentWindow.document;
 
-    const containerIds = getContainerIds(contentDocument);
+    const containerIds = getContainerIds(contentDocument, iframeUrl);
 
     setContainerIds(containerIds);
   }, []);
