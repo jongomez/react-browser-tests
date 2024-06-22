@@ -4,7 +4,7 @@ const running = 'rgb(0, 0, 255)';
 const success = 'rgb(0, 160, 0)';
 const fail = 'rgb(255, 40, 40)';
 const skipped = 'rgb(255, 165, 0)';
-const headerHeightPx = '50px';
+const headerHeightPx = '60px';
 const sidebarWidthPx = '256px';
 
 export const testContainerStyles: string = `
@@ -160,21 +160,24 @@ export const layoutStyles: string = `
 }
 
 .rbt-header {
+  grid-area: header;
+
+  /* When the overlay is active, the header should be on top and with a white background. */
+  background-color: white;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
+
+  padding: 15px;
+  box-sizing: border-box;
+
+  width: 100%;
   height: ${headerHeightPx};
+
+  z-index: 1000;
+
   border-bottom: 1px solid rgb(230, 230, 230);
-
-  z-index: 100;
-  background-color: white;
-
-  user-select: none;
 }
 
 .rbt-header-title-anchor {
@@ -188,6 +191,7 @@ export const layoutStyles: string = `
   align-items: center;
   gap: 10px;
   padding-left: 16px;
+  user-select: none;
 }
 
 .rbt-github-link {
@@ -208,40 +212,40 @@ export const layoutStyles: string = `
 }
 
 .rbt-sidebar-layout {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: ${sidebarWidthPx} 1fr;
+  grid-template-areas:
+      "header header"
+      "sidebar main-content";
+  height: 100vh;
 }
 
 .rbt-sidebar-layout-content {
-  position: relative;
-  top: ${headerHeightPx};
-  margin-left: ${sidebarWidthPx};
-
-  /* Take padding into account for the width and height: */ 
-  box-sizing: border-box;
+  grid-area: main-content;
 
   padding: 20px;
-  max-width: calc(100% - ${sidebarWidthPx});
+  overflow-y: auto;
+
+  height: calc(100vh - ${headerHeightPx});
+
+  box-sizing: border-box;
 }
 
 .rbt-sidebar {
-  padding: 10px 0;
-  /* The -20px are from the padding */ 
-  height: calc(100vh - ${headerHeightPx} - 20px);
-  width: ${sidebarWidthPx};
-  flex-shrink: 0;
-  
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  margin-top: ${headerHeightPx};
-
-  overflow: auto;
-
+  grid-area: sidebar;
   background-color: white;
-  z-index: 99;
-}
+  padding: 10px;
 
+  box-sizing: border-box;
+
+  width: ${sidebarWidthPx};
+  overflow-y: auto;
+  z-index: 1000;
+
+  height: calc(100vh - ${headerHeightPx});
+}
+ 
 .rbt-mobile-menu-overlay-active {
   display: none;
   position: fixed;
@@ -250,8 +254,17 @@ export const layoutStyles: string = `
 }
 
 @media (max-width: 768px) {
+  .rbt-sidebar-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "header"
+        "main-content";
+  }
+
   .rbt-sidebar {
     display: none;
+    position: fixed;
+    top: ${headerHeightPx};
   }
 
   .rbt-burger-menu {
