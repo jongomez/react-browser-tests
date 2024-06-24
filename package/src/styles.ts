@@ -39,9 +39,14 @@ export const testContainerStyles: string = `
 
 .rbt-test,
 .rbt-overview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
   padding: 8px;
   border-radius: 4px;
   margin: 4px;
+  min-height: 24px;
 }
 
 .rbt-test-array-stats {

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { TestContainerState } from "../..";
 import { useGetContainerStateUntilAllTestsFinish } from "../../lib/hooks";
 import { getBorderStyles, getTestArrayFromContainerState, getTestStats, groupTests } from "../../lib/testHelpers";
 import { TestArrayStats } from "../stats/TestArrayStats";
@@ -8,6 +9,7 @@ export type SingleTestContainerOverviewProps = React.HTMLAttributes<HTMLDivEleme
   containerId?: string;
   iframeUrl?: string;
   title?: string;
+  testsCompleteCallback?: (containerState: TestContainerState) => void;
   showGroupStats?: boolean;
 }
 
@@ -15,10 +17,11 @@ export const SingleTestContainerOverview: FC<SingleTestContainerOverviewProps> =
   containerId,
   iframeUrl,
   title,
+  testsCompleteCallback,
   showGroupStats = false,
   ...props
 }) => {
-  const containerState = useGetContainerStateUntilAllTestsFinish(containerId, iframeUrl);
+  const containerState = useGetContainerStateUntilAllTestsFinish(containerId, iframeUrl, testsCompleteCallback);
   const testsArray = getTestArrayFromContainerState(containerState);
   const groupedTests = groupTests(testsArray, "(no test group)");
   const uniqueTestGroupTitles = Object.keys(groupedTests);
@@ -27,7 +30,8 @@ export const SingleTestContainerOverview: FC<SingleTestContainerOverviewProps> =
   const classNames = "rbt-overview " + getBorderStyles(containerStats.state);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    const loadingString = iframeUrl ? `Loading container for iframe '${iframeUrl}'` : `Loading tests for container id '${containerId}'`;
+    return <div className={"rbt-overview " + getBorderStyles("Pending")}>{loadingString}</div>;
   }
 
   return (

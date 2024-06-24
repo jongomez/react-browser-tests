@@ -36,7 +36,7 @@ export default function MultiplePageOverviewPage() {
 `}
       </SyntaxHighlighter>
 
-      <p>Below is the result:</p>
+      <p>And the result is:</p>
 
       <TestContainer>
         <MultiplePageOverview
@@ -66,6 +66,15 @@ export default function MultiplePageOverviewPage() {
           <SyntaxHighlighter language="tsx" style={prism}>
             {`<MultiplePageOverview iframeProps={{ style: { display: "none" } }} />`}
           </SyntaxHighlighter>
+        </div>
+
+        <div>
+          singleIframeMode?
+        </div>
+        <div>
+          <p>Boolean - if true, only one iframe is shown at a time. The default is false.</p>
+          <p>Setting this to true will very likely slow down the tests because the tests will run sequentially instead of in parallel.</p>
+          <p>However, in certain situations this may be necessary - for example, there&apos;s a limit on the amount of webgl contexts that can be created at the same time. If multiple iframes try to create a webgl context at the same time, the tests may fail.</p>
         </div>
 
         <div>

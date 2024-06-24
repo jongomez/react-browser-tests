@@ -20,6 +20,7 @@ export default function Tests() {
       <TestContainer >
         <MultiplePageOverview
           urls={urls}
+          // singleIframeMode
           iframeProps={{
             style: {
               display: "none"

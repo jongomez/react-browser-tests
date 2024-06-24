@@ -16,6 +16,17 @@ export function isIframeLoaded(iframe: HTMLIFrameElement): boolean {
   }
 }
 
+export function insideIframePathString(): string {
+  const topWindowPath = window.top?.location.pathname;
+  const currentWindowPath = window.location.pathname;
+
+  if (topWindowPath === currentWindowPath) {
+    return "";
+  }
+
+  return "Iframe " + currentWindowPath + " - ";
+}
+
 export function checkIfframeHasTestContainers(iframe: HTMLIFrameElement): boolean {
   const iframeWindow = iframe.contentWindow;
   if (!iframeWindow) {

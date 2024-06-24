@@ -1,6 +1,7 @@
 
 import CryptoJS from 'crypto-js';
 
+import { insideIframePathString } from '.';
 import { SetTestContainerState } from '../components/TestContext';
 import { BeforeAndAfterFunctions, GroupRecord, TestContainerState, TestRecord, TestState, TestStats, TestType, UpdateTestClosure } from "../types";
 import { updateWindowObject } from './window';
@@ -38,6 +39,7 @@ export async function executeTest(
   const { tests, groupRecord } = containerState;
   let resultInfo = '';
   let finalState: TestState = 'Pending';
+  const iframeUrlString = insideIframePathString();
 
   // Execute the test and handle both success and failure
   try {
@@ -50,10 +52,10 @@ export async function executeTest(
     // XXX: test.fn may not be async and not return a promise. "await" will still work though.
     await curentTest.fn(iframeContentWindow, iframeContentDocument);
 
-    console.log(`Test "${curentTest.title}" passed ✓`);
+    console.log(`${iframeUrlString}Test "${curentTest.title}" passed ✓`);
     finalState = "Success";
   } catch (error) {
-    let errorMessage = `Test "${curentTest.title}" failed: `;
+    let errorMessage = `${iframeUrlString}Test "${curentTest.title}" failed: `;
     errorMessage += (error instanceof Error) ? error.message : JSON.stringify(error);
     resultInfo = errorMessage;
     finalState = "Fail";
@@ -65,7 +67,7 @@ export async function executeTest(
 
     // Check if all tests have been processed.
     if (checkIfAllTestsComplete(newContainerState.tests)) {
-      console.log("Done ✨");
+      console.log(`${iframeUrlString}Done ✨`);
     }
 
     // Handle afterAll and afterEach functions.

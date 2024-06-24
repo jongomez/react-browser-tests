@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { SetTestContainerState, checkIfframeHasTestContainers } from "..";
+import { SetTestContainerState, checkIfframeHasTestContainers, insideIframePathString } from "..";
 import { base64TestIdUrlParam, defaultContainerId } from "../constants";
 import { BeforeAndAfterFunctions, GroupRecord, TestContainerState, TestRecord, TotalNumberOfTests, UpdateTestClosure } from "../types";
 import { executeTest, getContainerIds, toValidDOMId } from "./testHelpers";
@@ -16,6 +16,7 @@ export const useGetTotalNumberOfTests = (
     if (totalTests !== null) return;
     if (didInit.current) return;
 
+    const iframeUrlString = insideIframePathString();
     const tests = document.querySelectorAll(`[data-test="${containerId}"]`);
 
     setContainerState((prevState: TestContainerState) => {
@@ -25,8 +26,8 @@ export const useGetTotalNumberOfTests = (
       };
     });
 
-    console.log('Total number of tests found:', tests.length);
-    console.log('Waiting for the tests to be registered...');
+    console.log(`${iframeUrlString}Total number of tests found: ${tests.length}`);
+    console.log(`${iframeUrlString}Waiting for the tests to be registered...`);
 
     didInit.current = true;
   }, []);
@@ -88,18 +89,20 @@ export const useRunTests = (
       return;
     }
 
+    const iframeUrlString = insideIframePathString();
+
     if (registeredTestsNumber === 0) {
-      console.warn("No tests found :(");
+      console.warn(`${iframeUrlString}No tests found :(`);
       return;
     }
 
     if (currentTestIndex >= registeredTestsNumber) {
-      console.log(`All tests from container with Id '${containerState.containerId}' have been run.`);
+      console.log(`${iframeUrlString}All tests from container with Id '${containerState.containerId}' have been run.`);
       return;
     }
 
     if (currentTestIndex === 0) {
-      console.log("All tests have been registered. Running tests 1 by 1...");
+      console.log(`${iframeUrlString}All tests have been registered. Running tests 1 by 1...`);
     }
 
     // Check if there are any running tests. If yes, return early.
@@ -212,6 +215,7 @@ const getContentWindow = (iframeUrl?: string): Window => {
 export const useGetContainerStateUntilAllTestsFinish = (
   containerId = defaultContainerId,
   iframeUrl?: string,
+  testsCompleteCallback?: (containerState: TestContainerState) => void
 ): TestContainerState | null => {
   const [containerState, setContainerState] = useState<TestContainerState | null>(null);
   const intervalId = useRef<number | null>(null);
@@ -232,7 +236,7 @@ export const useGetContainerStateUntilAllTestsFinish = (
         currentContainerState = getContainerState(containerId, contentWindow);
 
         if (!currentContainerState) {
-          throw new Error(`Could not get container state for containerId: ${containerId}`);
+          throw new Error(`Could not get container state for containerId: ${containerId} in iframe: ${iframeUrl}`);
         }
 
         const newContainerState: TestContainerState = {
@@ -244,6 +248,7 @@ export const useGetContainerStateUntilAllTestsFinish = (
 
         // Check if all tests are complete. If yes, clear the interval.
         if (checkIfContainerTestsComplete(containerId, contentWindow)) {
+          testsCompleteCallback && testsCompleteCallback(newContainerState);
           window.clearInterval(intervalId.current || 0);
           return;
         }
@@ -261,7 +266,7 @@ export const useGetContainerStateUntilAllTestsFinish = (
       window.clearInterval(intervalId.current || 0);
       intervalId.current = null;
     }
-  }, []);
+  }, [iframeUrl]);
 
   return containerState;
 };
@@ -276,17 +281,17 @@ export const useGetContainerIds = (iframeUrl?: string): string[] => {
     const containerIds = getContainerIds(contentDocument, iframeUrl);
 
     setContainerIds(containerIds);
-  }, []);
+  }, [iframeUrl]);
 
   return containerIds;
 }
 
 // Waits for the iframes to load and checks if they have test containers.
-// The iframeRefs are updated when the iframes have loaded and have at least 1 test container.
-export function useWaitForIframesTestContainers(
-  urls: string[],
-  handleIframeLoad: (index: number) => void): React.MutableRefObject<(HTMLIFrameElement | null)[]> {
-  const iframeRefs = useRef<(HTMLIFrameElement | null)[]>(Array(urls.length).fill(null));
+// The iframeRef is updated when the iframe has loaded and has at least 1 test container.
+export function useWaitForIframeTestContainers(
+  url: string,
+  iframeRef: React.MutableRefObject<HTMLIFrameElement | null>,
+  handleIframeContainerReady: (url: string) => void): void {
   const intervalId = useRef<number | null>(null);
 
   useEffect(() => {
@@ -296,21 +301,11 @@ export function useWaitForIframesTestContainers(
     }
 
     intervalId.current = window.setInterval(() => {
-      let numIframesLoaded = 0;
+      const iframe = iframeRef.current;
 
-      iframeRefs.current.forEach((iframe, index) => {
-        if (iframe?.dataset.loaded) {
-          numIframesLoaded++;
-        }
+      if (iframe && checkIfframeHasTestContainers(iframe)) {
+        handleIframeContainerReady(url);
 
-        if (iframe && !iframe.dataset.loaded && checkIfframeHasTestContainers(iframe)) {
-          iframe.dataset.loaded = "true";
-          handleIframeLoad(index);
-        }
-      });
-
-      // If all the iframes are loaded, clear the interval.
-      if (numIframesLoaded === urls.length) {
         window.clearInterval(intervalId.current || 0);
         intervalId.current = null;
       }
@@ -321,9 +316,7 @@ export function useWaitForIframesTestContainers(
       clearInterval(intervalId.current || 0)
       intervalId.current = null;
     };
-  }, []);
-
-  return iframeRefs;
+  }, [url]);
 }
 
 //

@@ -102,7 +102,16 @@ export type TestContainerState = {
   iframeUrl?: string;
 }
 
+// Original goal of this type - the keys are the urls for the iframes.
+export type TestContainerStateArrayPerUrl = Record<string, TestContainerState[]>
+
 export type UpdateTestClosure = (test: TestType, updateIndex?: boolean) => TestContainerState;
+
+export type IframeState = "Waiting For A Test Container" | "Test Container Available" | "Pending";
+
+export type IframeStatesObject = {
+  [key: string]: IframeState;
+}
 
 export type ReactBrowserTestsWindowObject = {
   testContainers: TestContainerState[];
